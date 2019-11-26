@@ -36,6 +36,7 @@
 		</dependency>
 		<!-- tiles end -->
 ===============================================
+
 2.  환경설정 추가  :  servlet-context.xml
     ---> tiles 환경 설정 및 view 객체 생성
     ---> InternalResourceViewResolver  설정 부분은 주석 처리!!
@@ -56,6 +57,7 @@
 	</beans:bean>
 
 ===============================================
+
 3.  /WEB-INF/tiles/tiles.xml  파일 생성
 ------------------------------------------------------------------------------
 <?xml version="1.0" encoding="UTF-8"?>
@@ -106,8 +108,8 @@
 </tiles-definitions>
 
 ===============================================
-4.  3번의 tiles.xml 파일에서 참조하는 
-       ---->  /WEB-INF/views/layout.jsp 파일 생성
+
+4.  3번의 tiles.xml 파일에서 참조하는 ---->  /WEB-INF/views/layout.jsp 파일 생성
 ------------------------------------------------------------------------------
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
