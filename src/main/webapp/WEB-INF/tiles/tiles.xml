@@ -6,10 +6,11 @@
  
 <tiles-definitions>
  
-    <!-- 화면의 기초가 되는 base 
+    <!-- 화면의 기초가 되는 base(사용자 페이지) 
     	template = "/WEB-INF/views/layout.jsp"에 형식을 만들어 두고 각 페이지를 조합함
     	name = "base"는 변경해도됨
     -->
+    
     <definition name="base" template="/WEB-INF/views/layout.jsp">      
         <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
@@ -31,16 +32,63 @@
     <!-- layout.jsp 안의  tiles:insertAttribute name="body"을 여기서 정의한
     	  즉 Controller에서 넘겨주는 jsp(view)를 body에 박는다  -->
     <!-- index -->     
-    <definition name="*" extends="base">
+    <definition name="*.do" extends="base">
         <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
     </definition>
  	
  	<!-- /login/login -->
-     <definition name="*/*" extends="base">
+     <definition name="*/*.do" extends="base">
          <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
      </definition>
     
-    <definition name="*/*/*" extends="base">
+    <definition name="*/*/*.do" extends="base">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>
+    
+    
+    
+
+    <!-- 화면의 기초가 되는 base(관리자 페이지) 
+    	template = "/WEB-INF/views/admin_layout.jsp"에 형식을 만들어 두고 각 페이지를 조합함
+    	관리자 name = "adminbase" 으로 변경
+    -->
+    
+    <definition name="adminbase" template="/WEB-INF/views/admin_layout.jsp">      
+        <put-attribute name="header" value="/WEB-INF/views/admin/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/admin/footer.jsp" />
+    </definition>
+    
+    <!-- adminbase를 상속받은 base/index -->
+    <!-- adminbase를 상속받아 index.jsp를 body부분에 넣는다는 얘기 -->
+    <definition name="base/index" extends="adminbase">
+        <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+    </definition>
+    
+<!--
+         동적 매핑(호출할때마다 바뀜).
+         만약 /user/login의 경로라면 /WEB-INF/views/login/login.jsp 뷰를 가져온다. 
+         케바케 * 를 넣으면 {1}을 넣고 jsp를 실행하겠다.(요청하는 url 주소가 아닌 Controller의 반환값을 기준으로 본다 
+-->
+    
+    
+    <!-- layout.jsp 안의  tiles:insertAttribute name="body"을 여기서 정의한
+    	  즉 Controller에서 넘겨주는 jsp(view)를 body에 박는다  -->
+    <!-- index -->     
+    <definition name="*.admin" extends="adminbase">
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+ 	
+ 	<!-- /login/login -->
+     <definition name="*/*.admin" extends="adminbase">
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.admin" extends="adminbase">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>    
+    
+    
+    
+    
+    
 </tiles-definitions>
